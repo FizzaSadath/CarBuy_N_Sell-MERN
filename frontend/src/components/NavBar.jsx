@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function NavBar({ isLogin, isHome = false }) {
+export default function NavBar({ isLogin, isHome = false, buy }) {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -23,9 +23,28 @@ export default function NavBar({ isLogin, isHome = false }) {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href="/">
-                  {isHome ? <>Logout</> : isLogin ? <>Register</> : <>Login</>}
+                  {isHome ? (
+                    buy ? (
+                      <>Sell</>
+                    ) : (
+                      <>Buy</>
+                    )
+                  ) : isLogin ? (
+                    <>Register</>
+                  ) : (
+                    <>Login</>
+                  )}
                 </a>
               </li>
+              {isHome && (
+                <>
+                  <li className="nav-item">
+                    <a className="nav-link active" aria-current="page" href="/">
+                      Logout
+                    </a>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

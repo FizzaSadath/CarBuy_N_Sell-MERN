@@ -1,11 +1,11 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 
-export default function Home() {
+export default function Buy() {
   return (
     <>
-      <NavBar isHome={true} />
-      <div>HOME</div>
+      <NavBar isHome={true} buy={true} />
+      <h1>BUY</h1>
     </>
   );
 }
