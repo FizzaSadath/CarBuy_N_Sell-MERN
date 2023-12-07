@@ -1,17 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import NavBar from "../components/NavBar";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+import { UserContext } from "../contexts/UserContext";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const [credError, setcredError] = useState(false);
+  const [serverError, setserverError] = useState(false);
+
+  // const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
+
+  const onSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const data = { email, password };
+      const res = await axios.post("/user/login", data);
+      if (res.data.success) {
+        setcredError(false);
+        setUser(res.data.user);
+        navigate("/buy");
+      } else {
+        if (res.data.error === "cred") {
+          setcredError(true);
+        } else {
+          setserverError(true);
+        }
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   };
   return (
     <>
-      <NavBar isLogin={true}/>
+      <NavBar isLogin={true} />
       <div className="container">
         <form onSubmit={onSubmit}>
+          {serverError ? (
+            <>
+              <h6 className="red">Server Error, Try again later</h6>
+            </>
+          ) : (
+            credError && (
+              <>
+                <h6 className="red">Invalid Credentials</h6>
+              </>
+            )
+          )}
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email

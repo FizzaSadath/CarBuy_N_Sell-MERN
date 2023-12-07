@@ -52,6 +52,11 @@ summary,
   cursor: pointer;
 }
 
-.red{
+.red {
   color: red;
+}
+
+.none {
+  text-decoration: none;
+  color: inherit;
 }

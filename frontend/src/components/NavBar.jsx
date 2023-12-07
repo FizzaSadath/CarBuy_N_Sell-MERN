@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function NavBar({ isLogin, isHome = false, buy }) {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">
+          <div className="navbar-brand">
             RideMighty
-          </a>
+          </div>
           <button
             className="navbar-toggler"
             type="button"
@@ -22,26 +23,34 @@ export default function NavBar({ isLogin, isHome = false, buy }) {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">
+                <div className="nav-link active" aria-current="page">
                   {isHome ? (
                     buy ? (
-                      <>Sell</>
+                      <Link className="none" to="/sell">
+                        Sell
+                      </Link>
                     ) : (
-                      <>Buy</>
+                      <Link className="none" to="/buy">
+                        Buy
+                      </Link>
                     )
                   ) : isLogin ? (
-                    <>Register</>
+                    <Link className="none" to="/register">
+                      Register
+                    </Link>
                   ) : (
-                    <>Login</>
+                    <Link className="none" to="/">
+                      Login
+                    </Link>
                   )}
-                </a>
+                </div>
               </li>
               {isHome && (
                 <>
                   <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="/">
+                    <div className="nav-link active" aria-current="page">
                       Logout
-                    </a>
+                    </div>
                   </li>
                 </>
               )}

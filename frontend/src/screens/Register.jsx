@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import NavBar from "../components/NavBar";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+import { UserContext } from "../contexts/UserContext";
 
 export default function Register() {
+  const navigate = useNavigate();
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
@@ -10,6 +14,8 @@ export default function Register() {
   const [PasswordMatchError, setPasswordMatchError] = useState(false);
   const [userExistsError, setuserExistsError] = useState(false);
   const [serverError, setserverError] = useState(false);
+
+  const { setUser } = useContext(UserContext);
 
   const onSubmit = async (e) => {
     try {
@@ -21,7 +27,10 @@ export default function Register() {
         const data = { name, email, password };
         const res = await axios.post("/user/register", data);
         if (res.data.success) {
-          alert("Registration Successful");
+          setuserExistsError(false);
+          setserverError(false);
+          setUser(res.data.user);
+          navigate("/buy");
         } else {
           if (res.data.error === "email") {
             setuserExistsError(true);
