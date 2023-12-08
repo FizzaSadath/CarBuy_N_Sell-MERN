@@ -30,7 +30,7 @@ export default function Register() {
           setuserExistsError(false);
           setserverError(false);
           setUser(res.data.user);
-          navigate("/buy");
+          navigate("/");
         } else {
           if (res.data.error === "email") {
             setuserExistsError(true);

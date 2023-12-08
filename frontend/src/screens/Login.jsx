@@ -23,7 +23,7 @@ export default function Login() {
       if (res.data.success) {
         setcredError(false);
         setUser(res.data.user);
-        navigate("/buy");
+        navigate("/");
       } else {
         if (res.data.error === "cred") {
           setcredError(true);

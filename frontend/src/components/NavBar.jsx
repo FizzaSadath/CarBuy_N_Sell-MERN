@@ -7,7 +7,10 @@ export default function NavBar({ isLogin, isHome = false, buy }) {
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <div className="navbar-brand">
-            RideMighty
+            {" "}
+            <Link className="none" to="/">
+              RideMighty
+            </Link>
           </div>
           <button
             className="navbar-toggler"
@@ -30,7 +33,7 @@ export default function NavBar({ isLogin, isHome = false, buy }) {
                         Sell
                       </Link>
                     ) : (
-                      <Link className="none" to="/buy">
+                      <Link className="none" to="/">
                         Buy
                       </Link>
                     )

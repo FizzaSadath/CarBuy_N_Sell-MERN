@@ -55,4 +55,26 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/getUser", async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      res.json({ success: false, error: "login" });
+    } else {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = decoded.user;
+      const user = await userModel.findById(req.user);
+      if (!user) {
+        res.json({ success: false, error: "exist" });
+      } else {
+        const { password, ...rest } = user._doc;
+        res.json({ success: true, user: rest });
+      }
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, error: "server error" });
+  }
+});
+
 export default router;
