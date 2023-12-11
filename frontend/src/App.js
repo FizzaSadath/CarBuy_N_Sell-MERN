@@ -46,7 +46,7 @@ function App() {
             exact
             path="/"
             element={
-              isLoading ? <>loading...</> : user._id ? <Buy /> : <Login />
+              isLoading ? <div>loading...</div> : user._id ? <Buy /> : <Login />
             }
           />
           <Route

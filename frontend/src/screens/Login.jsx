@@ -18,6 +18,8 @@ export default function Login() {
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
+      setcredError(false);
+      setserverError(false);
       const data = { email, password };
       const res = await axios.post("/user/login", data);
       if (res.data.success) {
@@ -60,7 +62,7 @@ export default function Login() {
               className="form-control"
               id="email"
               value={email}
-              onChange={(e) => setemail(e.target.value)}
+              onChange={(e) => setemail(e.target.value.toLowerCase())}
             />
           </div>
           <div className="mb-3">

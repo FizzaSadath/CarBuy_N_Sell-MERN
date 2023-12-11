@@ -1,7 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
+import axios from "axios";
 
 export default function NavBar({ isLogin, isHome = false, buy }) {
+  const [isLogout, setisLogout] = useState(true);
+  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
+  const logout = async (e) => {
+    try {
+      e.preventDefault();
+      const res = await axios.get("/user/logout");
+      if (res.data.success) {
+        setUser({});
+        setisLogout(true);
+        navigate("/");
+      } else {
+        setisLogout(false);
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -51,15 +72,20 @@ export default function NavBar({ isLogin, isHome = false, buy }) {
               {isHome && (
                 <>
                   <li className="nav-item">
-                    <div className="nav-link active" aria-current="page">
+                    <button
+                      className="nav-link active"
+                      aria-current="page"
+                      onClick={logout}
+                    >
                       Logout
-                    </div>
+                    </button>
                   </li>
                 </>
               )}
             </ul>
           </div>
         </div>
+        {!isLogout && <h6 className="red">Logout Failed</h6>}
       </nav>
     </>
   );

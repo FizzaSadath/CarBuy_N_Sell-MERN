@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/register", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, contact, password } = req.body;
     let user = await userModel.findOne({ email });
     if (user) {
       res.json({ success: false, error: "email" });
@@ -17,6 +17,7 @@ router.post("/register", async (req, res) => {
       user = await userModel.create({
         name,
         email,
+        contact,
         password: hashedPassword,
       });
       const payload = { user: user._id }; // this is the payload that we will use to create the token to send the token to the client so that the client can use the token to access protected routes
@@ -52,6 +53,16 @@ router.post("/login", async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.json({ success: false, error: "crash" });
+  }
+});
+
+router.get("/logout", async (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.json({ success: true });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false });
   }
 });
 
