@@ -47,6 +47,7 @@ export default function Register() {
             setserverError(false);
             setUser(res.data.user);
             navigate("/");
+            // alert("User Registered");
           } else {
             if (res.data.error === "email") {
               setuserExistsError(true);
