@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 export default function Sell() {
   const [city, setcity] = useState("default");
-  const [year, setyear] = useState("");
-  const [model, setmodel] = useState("");
+  const [year, setyear] = useState("default");
+  const [model, setmodel] = useState("default");
   const [make, setmake] = useState("default");
   const [color, setcolor] = useState("default");
-  const [mileage, setmileage] = useState("");
-  const [price, setprice] = useState("");
+  const [mileage, setmileage] = useState(0);
+  const [price, setprice] = useState(0);
+  const [pictures, setpictures] = useState([]);
   const [description, setdescription] = useState("");
   const [cityError, setcityError] = useState(false);
   const [yearError, setyearError] = useState(false);
@@ -20,21 +21,52 @@ export default function Sell() {
   const [mileageError, setmileageError] = useState(false);
   const [priceError, setpriceError] = useState(false);
   const [descriptionError, setdescriptionError] = useState(false);
+  const [picturesError, setpicturesError] = useState(false);
 
   const navigate = useNavigate();
   const onSelect = (value, setvalue, seterror) => {
     seterror(value === "default");
     setvalue(value);
   };
+  const handleDescription = (value, setvalue, seterror) => {
+    seterror(value.replace(/\s+/g, "").trim() === "");
+    setvalue(value);
+  };
+  const handlePrice = (value, setvalue, seterror) => {
+    seterror(value < 100000);
+    setvalue(value);
+  };
+  const handleMileage = (value, setvalue, seterror) => {
+    seterror(value <= 0);
+    setvalue(value);
+  };
+  const handlePics = (e) => {
+    setpictures([...pictures, ...Array.from(e.target.files)]);
+    setpicturesError(e.target.files.length === 0);
+  };
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
-      if (city !== "default" && make !== "default" && color !== "default") {
-        alert("Form Submitted");
+      if (
+        city !== "default" &&
+        make !== "default" &&
+        color !== "default" &&
+        year !== "default" &&
+        description !== "" &&
+        price >= 100000 &&
+        mileage > 0 &&
+        pictures.length > 0
+      ) {
+        navigate("/");
       } else {
         setcityError(city === "default");
         setmakeError(make === "default");
         setcolorError(color === "default");
+        setyearError(year === "default");
+        setdescriptionError(description.replace(/\s+/g, "").trim() === "");
+        setpriceError(price < 100000);
+        setmileageError(mileage <= 0);
+        setpicturesError(pictures.length === 0);
       }
     } catch (error) {
       console.log(error.message);
@@ -63,6 +95,45 @@ export default function Sell() {
             {cityError && (
               <>
                 <h6 className="badge bg-danger">Select City</h6>
+              </>
+            )}
+          </div>
+          <div className="mb-3">
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              value={year}
+              onChange={(e) => onSelect(e.target.value, setyear, setyearError)}
+            >
+              <option value="default">Select Year</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+              <option value="2015">2015</option>
+              <option value="2014">2014</option>
+              <option value="2013">2013</option>
+              <option value="2012">2012</option>
+              <option value="2011">2011</option>
+              <option value="2010">2010</option>
+              <option value="2009">2009</option>
+              <option value="2008">2008</option>
+              <option value="2007">2007</option>
+              <option value="2006">2006</option>
+              <option value="2005">2005</option>
+              <option value="2004">2004</option>
+              <option value="2003">2003</option>
+              <option value="2002">2002</option>
+              <option value="2001">2001</option>
+              <option value="2000">2000</option>
+            </select>
+            {yearError && (
+              <>
+                <h6 className="badge bg-danger">Select Year</h6>
               </>
             )}
           </div>
@@ -121,14 +192,113 @@ export default function Sell() {
               </>
             )}
           </div>
-          <button className="btn btn-primary" type="submit">
-            Submit Application
-          </button>
-          <br />
-          {(cityError || makeError || colorError) && (
+          <div className="mb-3 form-floating">
+            <textarea
+              className="form-control"
+              id="description"
+              style={{ height: "100px" }}
+              value={description}
+              onChange={(e) =>
+                handleDescription(
+                  e.target.value,
+                  setdescription,
+                  setdescriptionError
+                )
+              }
+            ></textarea>
+            <label htmlFor="description">Description</label>
+            {descriptionError && (
+              <>
+                <h6 className="badge bg-danger">Description is required</h6>
+              </>
+            )}
+          </div>
+          <div className="mb-3 form-floating">
+            <input
+              type="number"
+              className="form-control"
+              id="price"
+              value={price === 0 ? "" : price}
+              onChange={(e) =>
+                handlePrice(e.target.value, setprice, setpriceError)
+              }
+            />
+            <label htmlFor="price">Price (PKR)</label>
+            {priceError && (
+              <>
+                <h6 className="badge bg-danger">Select a Realistic Price</h6>
+              </>
+            )}
+          </div>
+          <div className="mb-3 form-floating">
+            <input
+              type="number"
+              className="form-control"
+              id="mileage"
+              value={mileage === 0 ? "" : mileage}
+              onChange={(e) =>
+                handleMileage(e.target.value, setmileage, setmileageError)
+              }
+            />
+            <label htmlFor="price">Mileage (Km)</label>
+            {mileageError && (
+              <>
+                <h6 className="badge bg-danger">Select Mileage</h6>
+              </>
+            )}
+          </div>
+          <div className="mb-3 ">
+            <div className="input-group">
+              {" "}
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                className="form-control"
+                id="pictures"
+                onChange={handlePics}
+              />
+              <button className="btn btn-success" disabled id="pictures">
+                Upload Pictures
+              </button>
+            </div>
+
+            {picturesError && (
+              <>
+                <h6 className="badge bg-danger">Upload a Picture</h6>
+              </>
+            )}
+            {pictures.length > 0 && (
+              <div className="d-flex flex-wrap">
+                {pictures.map((picture, index) => (
+                  <div key={index} className="m-2">
+                    <img
+                      src={URL.createObjectURL(picture)}
+                      style={{ maxWidth: "200px", maxHeight: "200px" , objectFit:"contain" , border:"3px solid black", borderRadius:"5px"}}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {cityError ||
+          makeError ||
+          colorError ||
+          descriptionError ||
+          yearError ||
+          priceError ||
+          mileageError ||
+          picturesError ? (
             <>
-              <h6 className="badge bg-danger">Incomplete Details</h6>
+              <button className="btn btn-danger" disabled>
+                Details are not complete
+              </button>
             </>
+          ) : (
+            <button className="btn btn-primary" type="submit">
+              Submit Ad
+            </button>
           )}
         </form>
       </div>
