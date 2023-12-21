@@ -42,6 +42,7 @@ export default function Sell() {
   };
   const handlePics = (e) => {
     setpictures([...pictures, ...Array.from(e.target.files)]);
+    // setpictures(Array.from(e.target.files));
     setpicturesError(e.target.files.length === 0);
   };
   const onSubmit = async (e) => {
@@ -57,7 +58,28 @@ export default function Sell() {
         mileage > 0 &&
         pictures.length > 0
       ) {
-        navigate("/");
+        const formData = new FormData(); // it is a built in class used to send files to the server
+        formData.append("city", city);
+        formData.append("year", year);
+        formData.append("make", make);
+        formData.append("color", color);
+        formData.append("mileage", mileage);
+        formData.append("price", price);
+        formData.append("description", description);
+        pictures.forEach((picture) => {
+          formData.append("pictures", picture);
+        });
+
+        const res = await axios.post("/ad/post", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        if (res.data.success) {
+          navigate("/");
+        } else {
+          alert("Failed to post ad");
+        }
       } else {
         setcityError(city === "default");
         setmakeError(make === "default");
@@ -77,7 +99,7 @@ export default function Sell() {
     <>
       <NavBar isHome={true} buy={false} />
       <div className="container">
-        <form onSubmit={onSubmit}>
+        <form encType="multipart/form-data" onSubmit={onSubmit}>
           <div className="mb-3">
             <select
               className="form-select"
@@ -273,8 +295,15 @@ export default function Sell() {
                 {pictures.map((picture, index) => (
                   <div key={index} className="m-2">
                     <img
+                      alt="..."
                       src={URL.createObjectURL(picture)}
-                      style={{ maxWidth: "200px", maxHeight: "200px" , objectFit:"contain" , border:"3px solid black", borderRadius:"5px"}}
+                      style={{
+                        maxWidth: "200px",
+                        maxHeight: "200px",
+                        objectFit: "contain",
+                        border: "3px solid black",
+                        borderRadius: "5px",
+                      }}
                     />
                   </div>
                 ))}
