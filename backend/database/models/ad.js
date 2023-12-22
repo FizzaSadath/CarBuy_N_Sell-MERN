@@ -35,7 +35,10 @@ const adSchema = new mongoose.Schema({
       contentType: String,
     },
   ],
-
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 const adModel = mongoose.model("ad", adSchema);

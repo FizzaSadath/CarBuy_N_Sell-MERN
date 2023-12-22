@@ -8,7 +8,7 @@ export default function Buy() {
   useEffect(() => {
     const fetchAds = async () => {
       try {
-        const response = await axios.get("ad/getAll");
+        const response = await axios.get("ad/all");
         if (response.data.success) {
           setAds(response.data.ads);
         } else {
@@ -25,22 +25,6 @@ export default function Buy() {
   const displayImages = (imageDataArray) => {
     try {
       if (imageDataArray && imageDataArray.length > 0) {
-        // return imageDataArray.map((imageData, index) => {
-        //   if (imageData && imageData.data && imageData.contentType) {
-        //     return (
-        //       <img
-        //         key={index}
-        //         src={`data:image/jpeg;base64,${imageData.data}`}
-        //         className="card-img-top img-fluid rounded mx-auto d-block"
-        //         alt="..."
-        //       />
-        //     );
-        //   }
-        //   return null;
-        // }
-
-        // );
-
         if (
           imageDataArray[0] &&
           imageDataArray[0].data &&
