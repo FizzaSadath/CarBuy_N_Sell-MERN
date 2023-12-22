@@ -3,34 +3,10 @@ import fs from "fs";
 import path from "path";
 import multer from "multer";
 import adModel from "../database/models/ad.js";
-// const storage = multer.diskStorage({
-//   destination: "uploads/",
-//   filename: (req, file, cb) => {
-//     cb(
-//       null,
-//       Date.now() +
-//         "-" +
-//         Math.round(Math.random() * 1e9) +
-//         "-" +
-//         file.originalname
-//     );
-//   },
-// });
 
-const storage = multer
-  .memoryStorage
-  //   destination: "uploads/",
-  //   filename: (req, file, cb) => {
-  //     cb(
-  //       null,
-  //       Date.now() +
-  //         "-" +
-  //         Math.round(Math.random() * 1e9) +
-  //         "-" +
-  //         file.originalname
-  //     );
-  //   },
-  ();
+import userModel from "../database/models/user.js";
+
+const storage = multer.memoryStorage();
 
 const deleteFilesInDirectory = (directoryPath) => {
   try {

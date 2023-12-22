@@ -25,19 +25,36 @@ export default function Buy() {
   const displayImages = (imageDataArray) => {
     try {
       if (imageDataArray && imageDataArray.length > 0) {
-        return imageDataArray.map((imageData, index) => {
-          if (imageData && imageData.data && imageData.contentType) {
-            return (
-              <img
-                key={index}
-                src={`data:image/jpeg;base64,${imageData.data}`}
-                className="card-img-top img-fluid rounded mx-auto d-block"
-                alt="..."
-              />
-            );
-          }
-          return null;
-        });
+        // return imageDataArray.map((imageData, index) => {
+        //   if (imageData && imageData.data && imageData.contentType) {
+        //     return (
+        //       <img
+        //         key={index}
+        //         src={`data:image/jpeg;base64,${imageData.data}`}
+        //         className="card-img-top img-fluid rounded mx-auto d-block"
+        //         alt="..."
+        //       />
+        //     );
+        //   }
+        //   return null;
+        // }
+
+        // );
+
+        if (
+          imageDataArray[0] &&
+          imageDataArray[0].data &&
+          imageDataArray[0].contentType
+        ) {
+          return (
+            <img
+              src={`data:image/jpeg;base64,${imageDataArray[0].data}`}
+              className="card-img-top img-fluid rounded mx-auto d-block"
+              alt="..."
+            />
+          );
+        }
+        return null;
       }
       return null;
     } catch (error) {

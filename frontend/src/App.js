@@ -13,6 +13,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { UserContext } from "./contexts/UserContext";
+import MyAds from "./screens/MyAds";
 
 function App() {
   const { user, setUser } = useContext(UserContext);
@@ -70,6 +71,19 @@ function App() {
                 <>loading...</>
               ) : user._id ? (
                 <Sell />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/myAds"
+            element={
+              isLoading ? (
+                <>loading...</>
+              ) : user._id ? (
+                <MyAds />
               ) : (
                 <Navigate to="/" replace />
               )

@@ -28,7 +28,6 @@ export default function NavBar({ isLogin, isHome = false, buy }) {
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <div className="navbar-brand">
-            {" "}
             <Link className="none" to="/">
               RideMighty
             </Link>
@@ -71,6 +70,11 @@ export default function NavBar({ isLogin, isHome = false, buy }) {
               </li>
               {isHome && (
                 <>
+                  <li className="nav-item">
+                    <Link className="none nav-link active" to="/myAds">
+                      My Ads
+                    </Link>
+                  </li>
                   <li className="nav-item">
                     <button
                       className="nav-link active"

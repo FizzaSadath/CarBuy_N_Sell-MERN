@@ -35,6 +35,7 @@ const adSchema = new mongoose.Schema({
       contentType: String,
     },
   ],
+
 });
 
 const adModel = mongoose.model("ad", adSchema);
