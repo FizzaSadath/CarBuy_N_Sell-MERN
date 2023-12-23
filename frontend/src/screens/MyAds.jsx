@@ -20,6 +20,20 @@ function MyAds() {
     fetchAds();
   }, []);
 
+  const remove = async (e, id) => {
+    try {
+      e.preventDefault();
+      const res = await axios.delete(`ad/delete/${id}`);
+      if (res.data.success) {
+        window.location.reload();
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   const displayImages = (imageDataArray) => {
     try {
       if (imageDataArray && imageDataArray.length > 0) {
@@ -62,6 +76,19 @@ function MyAds() {
                   <h6 className="card-title">Mileage: {ad.mileage} Km</h6>
                   {displayImages(ad.pictures)}
                   <p className="card-text">{ad.description}</p>
+                  <div className="myAdsBtn">
+                    <button
+                      onClick={(e) => {
+                        remove(e, ad._id);
+                      }}
+                      className="btn btn-danger"
+                    >
+                      Remove
+                    </button>
+                    <button className="btn btn-secondary" disabled>
+                      Edit
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

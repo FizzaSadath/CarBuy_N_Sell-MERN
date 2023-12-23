@@ -60,3 +60,8 @@ summary,
   text-decoration: none;
   color: inherit;
 }
+
+.myAdsBtn{
+  display: flex;
+  justify-content:space-between;
+}

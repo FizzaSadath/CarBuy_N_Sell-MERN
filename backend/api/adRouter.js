@@ -95,4 +95,30 @@ router.get("/my", async (req, res) => {
   }
 });
 
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      res.json({ success: false, error: "login" });
+    } else {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = decoded.user;
+      const user = await userModel.findById(req.user);
+      if (!user) {
+        res.json({ success: false, error: "exist" });
+      } else {
+        const ad = await adModel.findById(req.params.id);
+        if (!ad) {
+          res.json({ success: false, error: "exist" });
+        } else {
+          await adModel.findByIdAndDelete(req.params.id);
+          res.json({ success: true });
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+
 export default router;
