@@ -54,7 +54,7 @@ export default function Buy() {
         <div className="container row">
           {ads.map((ad) => (
             <div className="col-sm" key={ad._id}>
-              <div className="card" style={{ width: "18rem" }}>
+              <div className="card mb-3 " style={{ width: "18rem" }}>
                 <div className="card-body">
                   <h4 className="card-title">
                     {ad.make} ({ad.year})

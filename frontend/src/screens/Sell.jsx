@@ -42,7 +42,6 @@ export default function Sell() {
   };
   const handlePics = (e) => {
     setpictures([...pictures, ...Array.from(e.target.files)]);
-    // setpictures(Array.from(e.target.files));
     setpicturesError(e.target.files.length === 0);
   };
   const onSubmit = async (e) => {
