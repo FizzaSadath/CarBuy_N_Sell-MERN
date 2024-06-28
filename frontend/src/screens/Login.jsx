@@ -39,8 +39,10 @@ export default function Login() {
   };
   return (
     <>
+      <div style={{backgroundColor:"#9EC8B9", height:"729px"}} >
       <NavBar isLogin={true} />
-      <div className="container">
+      
+      <div className="container" style={{ marginTop:"20px"}}>
         <form onSubmit={onSubmit}>
           {serverError ? (
             <>
@@ -82,6 +84,7 @@ export default function Login() {
             Login
           </button>
         </form>
+      </div>
       </div>
     </>
   );

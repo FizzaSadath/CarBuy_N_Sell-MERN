@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
 import axios from "axios";
@@ -23,13 +22,15 @@ export default function NavBar({ isLogin, isHome = false, buy }) {
       alert(error.message);
     }
   };
+
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <div className="navbar-brand">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{padding:"0px"}} >
+        <div className="container-fluid" style={{backgroundColor:"#092635"}}>
+          <div className="navbar-brand" >
             <Link className="none" to="/">
-              RideMighty
+              <h1 style={{color:"#9EC8B9", fontStyle:"italic"}}>Neo   </h1>
+              <h6 style={{color:"#FFFFFF"}}>pre-owned vehicle merchandise</h6>
             </Link>
           </div>
           <button
@@ -49,20 +50,20 @@ export default function NavBar({ isLogin, isHome = false, buy }) {
                 <div className="nav-link active" aria-current="page">
                   {isHome ? (
                     buy ? (
-                      <Link className="none" to="/sell">
+                      <Link className="none" to="/sell" style={{color:"#FFFFFF"}}>
                         Sell
                       </Link>
                     ) : (
-                      <Link className="none" to="/">
+                      <Link className="none" to="/" style={{color:"#FFFFFF"}}>
                         Buy
                       </Link>
                     )
                   ) : isLogin ? (
-                    <Link className="none" to="/register">
+                    <Link className="none" to="/register" style={{color:"#FFFFFF"}}>
                       Register
                     </Link>
                   ) : (
-                    <Link className="none" to="/">
+                    <Link className="none" to="/" style={{color:"#FFFFFF"}}>
                       Login
                     </Link>
                   )}
@@ -71,7 +72,7 @@ export default function NavBar({ isLogin, isHome = false, buy }) {
               {isHome && (
                 <>
                   <li className="nav-item">
-                    <Link className="none nav-link active" to="/myAds">
+                    <Link className="none nav-link active" to="/myAds" style={{color:"#FFFFFF"}}>
                       My Ads
                     </Link>
                   </li>
@@ -80,6 +81,7 @@ export default function NavBar({ isLogin, isHome = false, buy }) {
                       className="nav-link active"
                       aria-current="page"
                       onClick={logout}
+                      style={{color:"#FFFFFF"}}
                     >
                       Logout
                     </button>

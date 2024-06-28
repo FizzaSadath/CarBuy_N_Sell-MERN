@@ -33,7 +33,7 @@ export default function Sell() {
     setvalue(value);
   };
   const handlePrice = (value, setvalue, seterror) => {
-    seterror(value < 100000);
+    seterror(value < 90000);
     setvalue(value);
   };
   const handleMileage = (value, setvalue, seterror) => {
@@ -53,7 +53,7 @@ export default function Sell() {
         color !== "default" &&
         year !== "default" &&
         description !== "" &&
-        price >= 100000 &&
+        price >= 90000 &&
         mileage > 0 &&
         pictures.length > 0
       ) {
@@ -85,7 +85,7 @@ export default function Sell() {
         setcolorError(color === "default");
         setyearError(year === "default");
         setdescriptionError(description.replace(/\s+/g, "").trim() === "");
-        setpriceError(price < 100000);
+        setpriceError(price < 90000);
         setmileageError(mileage <= 0);
         setpicturesError(pictures.length === 0);
       }
@@ -96,8 +96,10 @@ export default function Sell() {
 
   return (
     <>
+      <div style={{backgroundColor:"#5C8374",height:"1000px"}} >
       <NavBar isHome={true} buy={false} />
-      <div className="container">
+      
+      <div className="container" style={{backgroundColor:"#1B4242",marginTop:"20px",padding:"12px"}} >
         <form encType="multipart/form-data" onSubmit={onSubmit}>
           <div className="mb-3">
             <select
@@ -107,11 +109,11 @@ export default function Sell() {
               onChange={(e) => onSelect(e.target.value, setcity, setcityError)}
             >
               <option value="default">Select City</option>
-              <option value="Karachi">Karachi</option>
-              <option value="Lahore">Lahore</option>
-              <option value="Islamabad">Islamabad</option>
-              <option value="Quetta">Quetta</option>
-              <option value="Peshawar">Peshawar</option>
+              <option value="Kannur">Kannur</option>
+              <option value="Kozhikode">Kozhikode</option>
+              <option value="Wayanad">Wayanad</option>
+              <option value="Kasargod">Kasargod</option>
+              <option value="Malappuram">Malappuram</option>
             </select>
             {cityError && (
               <>
@@ -171,7 +173,7 @@ export default function Sell() {
               <option value="Toyota">Toyota</option>
               <option value="Kia">Kia</option>
               <option value="Hyundai">Hyundai</option>
-              <option value="Daihatsu">Daihatsu</option>
+              <option value="Other">Other</option>
             </select>
             {makeError && (
               <>
@@ -244,7 +246,7 @@ export default function Sell() {
                 handlePrice(e.target.value, setprice, setpriceError)
               }
             />
-            <label htmlFor="price">Price (PKR)</label>
+            <label htmlFor="price">Price (INR)</label>
             {priceError && (
               <>
                 <h6 className="badge bg-danger">Select a Realistic Price</h6>
@@ -329,6 +331,7 @@ export default function Sell() {
             </button>
           )}
         </form>
+      </div>
       </div>
     </>
   );

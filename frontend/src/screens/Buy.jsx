@@ -17,7 +17,10 @@ export default function Buy() {
       } catch (error) {
         console.log("Error fetching ads:", error);
       }
+      
     };
+
+   
 
     fetchAds();
   }, []);
@@ -48,20 +51,23 @@ export default function Buy() {
   return (
     <>
       <NavBar isHome={true} buy={true} />
+      
       {ads.length === 0 ? (
-        <>loading...</>
+        <>Fetching details...</>
       ) : (
-        <div className="container row">
+        
+        <div className="container row" style={{alignItems:"center"}}>
           {ads.map((ad) => (
-            <div className="col-sm" key={ad._id}>
-              <div className="card mb-3 " style={{ width: "18rem" }}>
-                <div className="card-body">
+            <div className="col-sm" key={ad._id} >
+              <div className="card mb-3 " style={{ width: "25rem" , marginTop:"10px"}}>
+                <div className="card-body" style={{backgroundColor:"#9EC8B9",height:"500px"}}>
                   <h4 className="card-title">
                     {ad.make} ({ad.year})
                   </h4>
-                  <h5 className="card-title"> PKR {ad.price}</h5>
+                  <h5 className="card-title"> INR {ad.price}</h5>
                   <h6 className="card-title">{ad.city}</h6>
-                  <h6 className="card-title">Mileage: {ad.mileage} Km</h6>
+                  <h6 className="card-title">Mileage: {ad.mileage} Km/l </h6>
+                  
                   {displayImages(ad.pictures)}
                   <p className="card-text">{ad.description}</p>
                 </div>
@@ -69,6 +75,7 @@ export default function Buy() {
             </div>
           ))}
         </div>
+        
       )}
     </>
   );

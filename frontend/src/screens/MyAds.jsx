@@ -67,12 +67,12 @@ function MyAds() {
         <div className="container row">
           {ads.map((ad) => (
             <div className="col-sm" key={ad._id}>
-              <div className="card" style={{ width: "18rem" }}>
+              <div className="card" style={{ width: "18rem",marginTop:"10px" }}>
                 <div className="card-body">
                   <h4 className="card-title">
                     {ad.make} ({ad.year})
                   </h4>
-                  <h5 className="card-title"> PKR {ad.price}</h5>
+                  <h5 className="card-title"> INR {ad.price}</h5>
                   <h6 className="card-title">{ad.city}</h6>
                   <h6 className="card-title">Mileage: {ad.mileage} Km</h6>
                   {/* <h6>{ad._id}</h6> */}

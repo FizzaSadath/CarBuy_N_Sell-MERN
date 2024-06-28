@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
         password: hashedPassword,
       });
       const payload = { user: user._id }; // this is the payload that we will use to create the token to send the token to the client so that the client can use the token to access protected routes
-      const token = jwt.sign(payload, process.env.JWT_SECRET);
+      const token = jwt.sign(payload, process.env.SECRET_KEY);
       res.cookie("token", token, { httpOnly: true }); // httpOnly: true means that the cookie can only be accessed by the server and not by the client // we are sending the token as a cookie because we want the browser to automatically send the token to the server whenever the user makes a request to the server
       const { password: pass, ...rest } = user._doc; // remove password from the response because we don't want to send the password to the client
 
@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
         res.json({ success: false, error: "cred" });
       } else {
         const payload = { user: user._id }; // this is the payload that we will use to create the token to send the token to the client so that the client can use the token to access protected routes
-        const token = jwt.sign(payload, process.env.JWT_SECRET);
+        const token = jwt.sign(payload, process.env.SECRET_KEY);
         res.cookie("token", token, { httpOnly: true }); // httpOnly: true means that the cookie can only be accessed by the server and not by the client // we are sending the token as a cookie because we want the browser to automatically send the token to the server whenever the user makes a request to the server
         const { password: pass, ...rest } = user._doc;
         res.json({ success: true, user: rest });
@@ -72,7 +72,7 @@ router.get("/getUser", async (req, res) => {
     if (!token) {
       res.json({ success: false, error: "login" });
     } else {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.SECRET_KEY);
       req.user = decoded.user;
       const user = await userModel.findById(req.user);
       if (!user) {

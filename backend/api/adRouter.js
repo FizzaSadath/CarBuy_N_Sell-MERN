@@ -24,7 +24,7 @@ router.post("/post", upload.array("pictures"), async (req, res) => {
     if (!token) {
       res.json({ success: false, error: "login" });
     } else {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.SECRET_KEY);
       req.user = decoded.user;
       const user = await userModel.findById(req.user);
       if (!user) {
@@ -57,7 +57,7 @@ router.get("/all", async (req, res) => {
     if (!token) {
       res.json({ success: false, error: "login" });
     } else {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.SECRET_KEY);
       req.user = decoded.user;
       const user = await userModel.findById(req.user);
       if (!user) {
@@ -79,7 +79,7 @@ router.get("/my", async (req, res) => {
     if (!token) {
       res.json({ success: false, error: "login" });
     } else {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.SECRET_KEY);
       req.user = decoded.user;
       const user = await userModel.findById(req.user);
       if (!user) {
@@ -101,7 +101,7 @@ router.delete("/delete/:id", async (req, res) => {
     if (!token) {
       res.json({ success: false, error: "login" });
     } else {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.SECRET_KEY);
       req.user = decoded.user;
       const user = await userModel.findById(req.user);
       if (!user) {

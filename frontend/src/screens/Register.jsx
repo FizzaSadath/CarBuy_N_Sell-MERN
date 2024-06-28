@@ -9,7 +9,7 @@ export default function Register() {
   const navigate = useNavigate();
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
-  const [contact, setcontact] = useState(0);
+  const [contact, setcontact] = useState("");
   const [password, setpassword] = useState("");
   const [cpassword, setcpassword] = useState("");
   const [contactError, setcontactError] = useState(false);
@@ -28,11 +28,11 @@ export default function Register() {
       e.preventDefault();
       if (password !== cpassword) {
         setPasswordMatchError(true);
-        if (!/^03\d{9}$/.test(contact)) {
+        if (!/^91\d{10}$/.test(contact)) {
           setcontactError(true);
         }
       } else {
-        if (!/^03\d{9}$/.test(contact)) {
+        if (!/^91\d{10}$/.test(contact)) {
           setcontactError(true);
           if (password !== cpassword) {
             setPasswordMatchError(true);
@@ -63,8 +63,9 @@ export default function Register() {
   };
   return (
     <>
+      <div style={{backgroundColor:"#9EC8B9", height:"729px"}} >
       <NavBar isLogin={false} />
-      <div className="container">
+      <div className="container" style={{ marginTop:"20px"}}>
         {serverError && (
           <>
             <h6 className="red">Server Error, Try again later</h6>
@@ -104,7 +105,7 @@ export default function Register() {
           </div>
           <div className="mb-3">
             <label htmlFor="contact" className="form-label">
-              Contact (03XXXXXXXXX)
+              Contact (91XXXXXXXXXX)
             </label>
             <input
               type="number"
@@ -157,6 +158,7 @@ export default function Register() {
             Register
           </button>
         </form>
+      </div>
       </div>
     </>
   );

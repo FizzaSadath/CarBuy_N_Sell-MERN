@@ -65,3 +65,6 @@ summary,
   display: flex;
   justify-content:space-between;
 }
+#root{
+  align-items: center;
+}
